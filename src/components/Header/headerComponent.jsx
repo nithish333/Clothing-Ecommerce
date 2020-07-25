@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import CardIcon from "../CardIcon/CardIcon";
 import CartDropdown from "../CartDropdown/CartDropdown";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   const style = {
     fontSize: "20px",
     cursor: "pointer",
@@ -35,12 +35,13 @@ const Header = ({ currentUser }) => {
         )}
         <CardIcon />
       </div>
-      <CartDropdown />
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 export default connect(mapStateToProps)(Header);
