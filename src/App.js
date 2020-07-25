@@ -25,7 +25,7 @@ class App extends Component {
           });
         });
       } else {
-        setCurrentUser({ currentUser: userAuth });
+        setCurrentUser(userAuth);
       }
     });
   }
@@ -47,7 +47,7 @@ class App extends Component {
   }
 }
 
-const dispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
-export default connect(null, dispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
