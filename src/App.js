@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import SignInAndSignOut from "./pages/SignInAndSignOut/SignInAndSignOut";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import setCurrentUser from "./redux/User/User.actions";
+import checkoutPage from "./pages/checkout/checkout";
 class App extends Component {
   unsubscribeFromAuth = null;
 
@@ -40,6 +41,7 @@ class App extends Component {
           <Route exact path="/" component={Homepage} />
           {/* <Route path="/hats" component={Hatspage} /> */}
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={checkoutPage} />
           <Route
             path="/signin"
             exact
