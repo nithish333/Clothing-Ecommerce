@@ -2,6 +2,7 @@ import React from "react";
 import "./checkout.scss";
 import { connect } from "react-redux";
 import CheckoutItem from "../../components/checkoutItem/CheckoutItem";
+// import { clearItemFromCart } from "../../redux/Cart/Cart.action";
 
 const checkoutPage = ({ cartItems, total }) => (
   <div className="checkoutPage">
