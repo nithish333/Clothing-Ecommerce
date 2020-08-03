@@ -4,9 +4,9 @@ import "./menuItem.styles.scss";
 
 const MenuItem = (props) => {
   const style = {
-    backgroundImage: `url(${props.image})`,
+    backgroundImage: `url(${props.imageUrl})`,
   };
-  console.log(props);
+  // console.log(props);
 
   return (
     <div
