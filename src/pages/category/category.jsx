@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import COLLECTION_ID_MAP from "../shop/shop.util";
 
 const Category = ({ match, collection }) => {
-  console.log(collection);
+  console.log(collection.match.params.collectionId);
   return (
     <div className="Category">
       <h2>Category Page</h2>

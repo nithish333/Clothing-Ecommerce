@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import CollectionsOverview from "../../components/collectionsOverview/collectionsOverview";
 import { Route } from "react-router-dom";
 import Category from "../category/category";
+import { selectShopData } from "../../redux/shopData/shop.selector";
 
 const Shop = ({ match }) => {
   console.log(match);
@@ -17,7 +18,7 @@ const Shop = ({ match }) => {
   );
 };
 
-const mapStateToProps = ({ shopData: { collections } }) => ({
-  collections,
+const mapStateToProps = (state) => ({
+  collections: selectShopData(state),
 });
 export default connect(mapStateToProps)(Shop);

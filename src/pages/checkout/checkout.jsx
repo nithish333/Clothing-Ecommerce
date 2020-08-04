@@ -2,6 +2,10 @@ import React from "react";
 import "./checkout.scss";
 import { connect } from "react-redux";
 import CheckoutItem from "../../components/checkoutItem/CheckoutItem";
+import {
+  selectCartItemsCount,
+  selectCartItems,
+} from "../../redux/Cart/Cart.selector";
 // import { clearItemFromCart } from "../../redux/Cart/Cart.action";
 
 const checkoutPage = ({ cartItems, total }) => (
@@ -31,11 +35,8 @@ const checkoutPage = ({ cartItems, total }) => (
     </div>
   </div>
 );
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  cartItems,
-  total: cartItems.reduce(
-    (accumulator, cartItem) => accumulator + cartItem.quantity * cartItem.price,
-    0
-  ),
+const mapStateToProps = (state) => ({
+  cartItems: selectCartItems(state),
+  total: selectCartItemsCount(state),
 });
 export default connect(mapStateToProps)(checkoutPage);

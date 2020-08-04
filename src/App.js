@@ -10,6 +10,8 @@ import SignInAndSignOut from "./pages/SignInAndSignOut/SignInAndSignOut";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import setCurrentUser from "./redux/User/User.actions";
 import checkoutPage from "./pages/checkout/checkout";
+import { selectCurrentUser } from "./redux/User/User.selector";
+
 class App extends Component {
   unsubscribeFromAuth = null;
 
@@ -59,8 +61,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
