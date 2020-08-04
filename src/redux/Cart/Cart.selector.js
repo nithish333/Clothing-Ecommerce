@@ -8,7 +8,10 @@ export const selectCartItems = createSelector(
 );
 
 export const selectCartItemsCount = createSelector([selectCartItems], (items) =>
-  items.reduce((accumulator, item) => accumulator + item.quantity, 0)
+  items.reduce(
+    (accumulator, item) => accumulator + item.quantity * item.price,
+    0
+  )
 );
 
 export const selectCartHidden = createSelector(

@@ -4,7 +4,7 @@ import "./collectionItem.styles.scss";
 import { addItem } from "../../redux/Cart/Cart.action";
 import CustomButton from "../CustomButton/CustomButton";
 
-const collectionItem = ({ item, addItem }) => {
+const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
   const style = {
     backgroundImage: `url(${imageUrl})`,
@@ -25,4 +25,4 @@ const collectionItem = ({ item, addItem }) => {
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item) => dispatch(addItem(item)),
 });
-export default connect(null, mapDispatchToProps)(collectionItem);
+export default connect(null, mapDispatchToProps)(CollectionItem);
