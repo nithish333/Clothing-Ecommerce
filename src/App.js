@@ -7,10 +7,15 @@ import ShopPage from "../src/pages/shop/shop.component";
 import Header from "./components/Header/headerComponent";
 import { connect } from "react-redux";
 import SignInAndSignOut from "./pages/SignInAndSignOut/SignInAndSignOut";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  // addCollectionsAndDocuments,
+} from "./firebase/firebase.utils";
 import setCurrentUser from "./redux/User/User.actions";
 import checkoutPage from "./pages/checkout/checkout";
 import { selectCurrentUser } from "./redux/User/User.selector";
+// import { selectCollectionForPreview } from "./redux/shopData/shop.selector";
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -27,9 +32,12 @@ class App extends Component {
             ...snapshot.data(),
           });
         });
-      } else {
-        setCurrentUser(userAuth);
       }
+      setCurrentUser(userAuth);
+      // addCollectionsAndDocuments(
+      //   "collections",
+      //   collectionsArray.map(({ title, items }) => ({ title, items }))
+      // );
     });
   }
   componentWillUnmount() {
@@ -63,6 +71,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state),
+  // collectionsArray: selectCollectionForPreview(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
