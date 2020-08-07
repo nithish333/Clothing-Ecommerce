@@ -11,8 +11,15 @@ import {
   convertCollectionsToSnapshotMap,
 } from "../../firebase/firebase.utils";
 import { updateCollection } from "../../redux/shopData/shop.actions";
+import withSpinner from "../../components/withSpinner/withSpinner";
+
+const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
+const CategoryPageWithSpinner = withSpinner(Category);
 
 class Shop extends React.Component {
+  state = {
+    loading: true,
+  };
   unsubscribeFromSnapshot = null;
 
   componentDidMount() {
@@ -22,15 +29,30 @@ class Shop extends React.Component {
     collectionRef.onSnapshot(async (snapshot) => {
       const collectionMap = convertCollectionsToSnapshotMap(snapshot);
       updateCollections(collectionMap);
+      this.setState({
+        loading: false,
+      });
     });
   }
   render() {
     const { match } = this.props;
+    const { loading } = this.state;
     return (
       <div className="shopPage">
         <h1>SHOP </h1>
-        <Route exact path={`${match.path}`} component={CollectionsOverview} />
-        <Route path={`${match.path}/:categoryId`} component={Category} />
+        <Route
+          exact
+          path={`${match.path}`}
+          render={(props) => (
+            <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
+          )}
+        />
+        <Route
+          path={`${match.path}/:categoryId`}
+          render={(props) => (
+            <CategoryPageWithSpinner isLoading={loading} {...props} />
+          )}
+        />
       </div>
     );
   }
