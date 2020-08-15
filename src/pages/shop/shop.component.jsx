@@ -1,22 +1,22 @@
 import React from "react";
 // import SHOP_DATA from "./shop.data";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+// import { createStructuredSelector } from "reselect";
 // import PreviewCollection from "../../components/PreviewComponent/PreviewCollection";
-import CollectionsOverview from "../../components/collectionsOverview/collectionsOverview";
+import CollectionsOverviewContainer from "../../components/collectionsOverview/collectionOverviewContainer";
 import { Route } from "react-router-dom";
-import Category from "../category/category";
 // import { selectShopData } from "../../redux/shopData/shop.selector";
 // import {
 //   firestore,
 //   convertCollectionsToSnapshotMap,
 // } from "../../firebase/firebase.utils";
 import { fetchCollectionsStartAsync } from "../../redux/shopData/shop.actions";
-import { selectIsCollectionLoaded } from "../../redux/shopData/shop.selector";
-import withSpinner from "../../components/withSpinner/withSpinner";
+// import { selectIsCollectionLoaded } from "../../redux/shopData/shop.selector";
+// import withSpinner from "../../components/withSpinner/withSpinner";
+import CategoryContainer from "../category/categoryContainer";
 
-const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
-const CategoryPageWithSpinner = withSpinner(Category);
+// const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
+// const CategoryPageWithSpinner = withSpinner(Category);
 
 class Shop extends React.Component {
   state = {
@@ -43,7 +43,7 @@ class Shop extends React.Component {
     // });
   }
   render() {
-    const { match, isCollectionLoaded } = this.props;
+    const { match } = this.props;
 
     return (
       <div className="shopPage">
@@ -51,32 +51,31 @@ class Shop extends React.Component {
         <Route
           exact
           path={`${match.path}`}
-          render={(props) => (
-            <CollectionsOverviewWithSpinner
-              isLoading={!isCollectionLoaded}
-              {...props}
-            />
-          )}
+          component={CollectionsOverviewContainer}
+          //? Without the container higher order component
+          // render={(props) => (
+          //   <CollectionsOverviewWithSpinner
+          //     isLoading={!isCollectionLoaded}
+          //     {...props}
+          //   />
+          // )}
         />
         <Route
           path={`${match.path}/:categoryId`}
-          render={(props) => (
-            <CategoryPageWithSpinner
-              isLoading={!isCollectionLoaded}
-              {...props}
-            />
-          )}
+          component={CategoryContainer}
+          // render={(props) => (
+          //   <CategoryPageWithSpinner
+          //     isLoading={!isCollectionLoaded}
+          //     {...props}
+          //   />
+          // )}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  // isCollectionFetching: selectIsCollectionFetching,
-  isCollectionLoaded: selectIsCollectionLoaded,
-});
 const mapDispatchToProps = (dispatch) => ({
   fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(null, mapDispatchToProps)(Shop);
